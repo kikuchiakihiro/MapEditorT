@@ -68,6 +68,7 @@ class Fbx
 	void IntConstantBuffer();
 	void InitMaterial(fbxsdk::FbxNode* pNode);
 	RENDER_STATE state_;
+	Texture* pToonTex_;
 public:
 
 	Fbx();
