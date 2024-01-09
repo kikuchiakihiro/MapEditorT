@@ -258,6 +258,9 @@ void Fbx::Draw(Transform& transform)
 {
 	//if (state_ == RENDER_DIRLIGHT)
 		Direct3D::SetShader(SHADER_OUTLINE);
+
+		Direct3D::SetShader(SHADER_TOON);
+
 	/*else
 		Direct3D::SetShader(SHADER_POINT);*/
 

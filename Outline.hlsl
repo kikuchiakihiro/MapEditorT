@@ -104,7 +104,7 @@ float4 PS(VS_OUT inData) : SV_Target
                      return float4(1, 1, 1, 1);
                  }
                  else {
-                     return float4(1, 1, 1, 0);
+                     return float4(0, 0, 0, 0);
                  }
                  //float4 tI = g_toon_texture.Sample(g_sampler, uv);
 
