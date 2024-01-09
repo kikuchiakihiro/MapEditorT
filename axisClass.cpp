@@ -30,7 +30,7 @@ void axisClass::Update()
 
 void axisClass::Draw()
 {
-    Transform xt, yt, zt;
+   /* Transform xt, yt, zt;
     xt.rotate_.y = 0;
     xt.scale_ = { 0.125,0.125,0.125 };
     yt.rotate_.z = 90;
@@ -42,7 +42,7 @@ void axisClass::Draw()
     Model::SetTransform(hModel_, yt);
     Model::Draw(hModel_);
     Model::SetTransform(hModel_, zt);
-    Model::Draw(hModel_);
+    Model::Draw(hModel_);*/
 }
 
 void axisClass::Release()

@@ -17,7 +17,7 @@ Floor::~Floor()
 void Floor::Initialize()
 {
     //モデルデータのロード
-    hModel_ = Model::Load("Assets/Ball.fbx");
+    hModel_ = Model::Load("Assets/BoxDefault.fbx");
     assert(hModel_ >= 0);
     /*transform_.position_.z = 3;
     transform_.position_.y = -2;*/
@@ -27,7 +27,8 @@ void Floor::Initialize()
 //更新
 void Floor::Update()
 {
-
+    transform_.rotate_.z += 0.1;
+    transform_.rotate_.y += 0.1;
 }
 
 //描画
