@@ -53,7 +53,7 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL)
     //ローカル座標に、ワールド・ビュー・プロジェクション行列をかけて
     //スクリーン座標に変換し、ピクセルシェーダーへ
 
-    pos = pos + normal * 0.05f;
+    pos = pos + normal;
     outData.pos = mul(pos, matWVP);
     outData.uv = uv;
     normal.w = 0;
@@ -102,12 +102,12 @@ float4 PS(VS_OUT inData) : SV_Target
                  float2 uv;
                  uv.x = inData.color.x;
                  uv.y = 0;
-                 if (abs(dot(inData.normal, normalize(inData.eyev))) < 0.4f) {
+                /* if (abs(dot(inData.normal, normalize(inData.eyev))) < 0.4f) {
                      return g_toon_texture.Sample(g_sampler, inData.color);
                  }
-                 else {
-                     return float4(1, 1, 1, 0);
-                 }
+                 else {*/
+                     return float4(1, 1, 1, 1);
+                 //}
                  //float4 tI = g_toon_texture.Sample(g_sampler, uv);
 
 

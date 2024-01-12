@@ -48,26 +48,33 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL)
 {
     //ピクセルシェーダーへ渡す情報
     VS_OUT outData = (VS_OUT)0;
-    //ローカル座標に、ワールド・ビュー・プロジェクション行列をかけて
-    //スクリーン座標に変換し、ピクセルシェーダーへ
+    ////ローカル座標に、ワールド・ビュー・プロジェクション行列をかけて
+    ////スクリーン座標に変換し、ピクセルシェーダーへ
 
-    pos = pos + normal * 0.005f;
-    outData.pos = mul(pos, matWVP);
-    outData.uv = uv;
+    //pos = pos + normal * 0.005f;
+    //outData.pos = mul(pos, matWVP);
+    //outData.uv = uv;
+    //normal.w = 0;
+    //normal = mul(normal, matNormal);
+    //normal = normalize(normal);
+    //outData.normal = normal;
+
+
+
+    //float4 light = normalize(lightPosition);
+    //light = normalize(light);
+
+    //outData.color = saturate(dot(normal, light));
+    //float4 posw = mul(pos, matW);
+    //outData.eyev = eyepos - posw;
+    ////まとめて出力
+    //return outData;
+
     normal.w = 0;
-    normal = mul(normal, matNormal);
-    normal = normalize(normal);
-    outData.normal = normal;
+    pos = pos + normal * 0.05;
 
+    outData.pos = mul(pos, matWVP);
 
-
-    float4 light = normalize(lightPosition);
-    light = normalize(light);
-
-    outData.color = saturate(dot(normal, light));
-    float4 posw = mul(pos, matW);
-    outData.eyev = eyepos - posw;
-    //まとめて出力
     return outData;
 }
 
@@ -106,7 +113,7 @@ float4 PS(VS_OUT inData) : SV_Target
                  else {
                      return float4(1, 1, 1, 1);
                  }*/
-                 return float4(1, 1, 1, 1);
+                 return float4(0, 0, 0, 0);
                  //float4 tI = g_toon_texture.Sample(g_sampler, uv);
 
                  
