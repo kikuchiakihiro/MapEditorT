@@ -19,6 +19,7 @@ enum SHADER_TYPE
 	SHADER_POINT,
 	SHADER_TOON,
 	SHADER_OUTLINE,
+	SHADER_NORMAL,
 	SHADER_MAX,
 };
 
@@ -37,6 +38,7 @@ namespace Direct3D
 	HRESULT InitShader2D();
 	HRESULT InitToonShader();
 	HRESULT InitOutlineShader();
+	HRESULT InitNormalMapping();
 	HRESULT InitShaderPointLight();
 
 
