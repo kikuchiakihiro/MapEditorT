@@ -357,6 +357,15 @@ void Fbx::Draw(Transform& transform)
 			ID3D11ShaderResourceView* pSRV = pMaterialList_[i].pTexture->GetSRV();
 			Direct3D::pContext_->PSSetShaderResources(0, 1, &pSRV);
 		}
+		if (pMaterialList_[i].pNormalTexture)
+		{
+			ID3D11ShaderResourceView* pSRV = pMaterialList_[i].pNormalTexture->GetSRV();
+			Direct3D::pContext_->PSSetShaderResources(2, 1, &pSRV);
+		}
+
+
+
+
 		ID3D11ShaderResourceView* pSRVToon = pToonTex_->GetSRV();
 		Direct3D::pContext_->PSSetShaderResources(1, 1, &pSRVToon);
 
