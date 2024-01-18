@@ -45,6 +45,7 @@ class Fbx
 		XMFLOAT4	specularColor;
 		FLOAT		shininess;
 		BOOL		isTextured;
+		BOOL		isNormalMap;
 	};
 
 	struct VERTEX
