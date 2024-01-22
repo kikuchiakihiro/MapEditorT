@@ -105,12 +105,12 @@ void Fbx::InitVertex(fbxsdk::FbxMesh* mesh)
 		int sIndex = mesh->GetPolygonVertexIndex(i);
 		
 		if (t) {
-			FbxVector4 tangent = t->GetDirectArray().GetAt(sIndex).mData;
+			 tangent = t->GetDirectArray().GetAt(sIndex).mData;
 		}
 		for (int j = 0; j < 3; j++) {
 			int index = mesh->GetPolygonVertices()[sIndex + j];
 			vertices[index].tangent
-				= { (float)tangent[0], (float)tangent[1], (float)tangent[2], 0.0f };
+				=  XMVectorSet((float)tangent[0], (float)tangent[1], (float)tangent[2], 0.0f);
 		}
 		
 	}

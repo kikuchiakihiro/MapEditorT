@@ -21,12 +21,13 @@ void Ball::Initialize()
     hModel_ = Model::Load("Assets/donut.fbx");
     assert(hModel_ >= 0);
     //transform_.position_.y = 1;
-    transform_.scale_ = { 0.125,0.125,0.125 };
+   transform_.scale_ = { 1.5,1.5,1.5 };
 }
 
 //çXêV
 void Ball::Update()
 {
+    transform_.position_.y = 3;
     transform_.rotate_.y += 0.3;
 }
 
