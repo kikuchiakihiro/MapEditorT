@@ -18,17 +18,17 @@ Sprite* pSprite = nullptr;
 void Ball::Initialize()
 {
     //モデルデータのロード
-    hModel_ = Model::Load("Assets/donut.fbx");
+    hModel_ = Model::Load("Assets/Ball.fbx");
     assert(hModel_ >= 0);
     //transform_.position_.y = 1;
-   transform_.scale_ = { 1.5,1.5,1.5 };
+   transform_.scale_ = { 3.0,3.0,3.0 };
 }
 
 //更新
 void Ball::Update()
 {
     transform_.position_.y = 3;
-    transform_.rotate_.y += 0.3;
+    //transform_.rotate_.y += 0.3;
 }
 
 //描画
