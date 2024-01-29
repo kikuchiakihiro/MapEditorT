@@ -72,11 +72,12 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL, f
 	binormal = normalize(binormal); //従法線ベクトルをローカル座標に変換したやつ
 
 	float4 posw = mul(pos, matW);
-	outData.eyev = normalize(posw - eyePosition); //ワールド座標の視線ベクトル
+	float4 eye = normalize(mul(pos, matW) - eyePosition);
+	outData.eyev = eye;
 
-	outData.Neyev.x = dot(outData.eyev, tangent);//接空間の視線ベクトル
-	outData.Neyev.y = dot(outData.eyev, binormal);
-	outData.Neyev.z = dot(outData.eyev, normal);
+	outData.Neyev.x = dot(eye, tangent);//接空間の視線ベクトル
+	outData.Neyev.y = dot(eye, binormal);
+	outData.Neyev.z = dot(eye, normal);
 	outData.Neyev.w = 0;
 
 	float4 light = normalize(lightPosition);
@@ -85,12 +86,12 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL, f
 
 
 
-	outData.color = mul(light, normal);
+	outData.color = mul(light, outData.normal);
 	outData.color.w = 0.0;
 
 	outData.light.x = dot(light, tangent);//接空間の光源ベクトル
 	outData.light.y = dot(light, binormal);
-	outData.light.z = dot(light, normal);
+	outData.light.z = dot(light, outData.normal);
 	outData.light.w = 0;
 
 	//まとめて出力
