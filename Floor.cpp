@@ -17,18 +17,18 @@ Floor::~Floor()
 void Floor::Initialize()
 {
     //モデルデータのロード
-    hModel_ = Model::Load("Assets/BoxDefault.fbx");
+    hModel_ = Model::Load("Assets/Dice.fbx");
     assert(hModel_ >= 0);
-    /*transform_.position_.z = 3;
-    transform_.position_.y = -2;*/
+    //transform_.position_.z = 3;
+    transform_.position_.y = -1;
    
 }
 
 //更新
 void Floor::Update()
 {
-    transform_.rotate_.z += 0.1;
-    transform_.rotate_.y += 0.1;
+    /*transform_.rotate_.z += 0.1;
+    transform_.rotate_.y += 0.1;*/
 }
 
 //描画
