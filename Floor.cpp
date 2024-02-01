@@ -19,8 +19,8 @@ void Floor::Initialize()
     //モデルデータのロード
     hModel_ = Model::Load("Assets/Dice.fbx");
     assert(hModel_ >= 0);
-    //transform_.position_.z = 3;
-    transform_.position_.y = -1;
+    transform_.position_.z = -8;
+    transform_.position_.y = 5;
    
 }
 
