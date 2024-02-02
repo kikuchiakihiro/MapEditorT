@@ -37,7 +37,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	wc.lpszMenuName = NULL;                     //メニュー（なし）
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
-	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH); //背景（白）
+	wc.hbrBackground = (HBRUSH)GetStockObject(LTGRAY_BRUSH); //背景（白）
 	RegisterClassEx(&wc); //クラスを登録
 
 	//ウィンドウサイズの計算
