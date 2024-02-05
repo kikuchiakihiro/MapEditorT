@@ -129,11 +129,11 @@ float4 PS(VS_OUT inData) : SV_Target
 			diffuse = diffuseColor * NL;
 			ambient = diffuseColor * ambientColor;
 		}
-		//return   diffuse + ambient;
-		float4 result = diffuse + ambient + specular;
+		return   diffuse + ambient;
+		/*float4 result = diffuse + ambient + specular;
 		if (isTextured)
 			result.a = inData.uv;
-		return result;
+		return result;*/
 	}
 	else
 	{
