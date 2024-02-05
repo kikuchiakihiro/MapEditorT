@@ -22,7 +22,7 @@ void Arrow::Initialize()
     assert(hModel_ >= 0);
     //transform_.position_.x = 3;
     //transform_.rotate_.x = 270;
-    //transform_.scale_ = { 0.25 ,0.25 ,0.25 };
+    transform_.scale_ = { 1.5 ,1.5 ,1.5 };
 }
 
 //çXêV
