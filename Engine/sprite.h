@@ -17,6 +17,7 @@ class Sprite
 	struct CONSTANT_BUFFER
 	{
 		XMMATRIX	matW;		//ワールド行列
+		float scroll;
 	};
 
 	//頂点情報

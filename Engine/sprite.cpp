@@ -55,6 +55,9 @@ HRESULT Sprite::Initialize()
 //描画
 void Sprite::Draw(Transform& transform)
 {
+
+	
+
 	Direct3D::SetShader(SHADER_2D);
 
 
@@ -68,6 +71,8 @@ void Sprite::Draw(Transform& transform)
 
 	//描画
 	Direct3D::pContext_->DrawIndexed(indexNum, 0, 0);
+
+
 }
 
 //解放
@@ -222,6 +227,8 @@ void Sprite::PassDataToCB(XMMATRIX worldMatrix)
 //各バッファをパイプラインにセット
 void Sprite::SetBufferToPipeline()
 {
+	static float scroll = 0.0f;
+	scroll += 0.01f;
 	//頂点バッファ
 	UINT stride = sizeof(VERTEX);
 	UINT offset = 0;

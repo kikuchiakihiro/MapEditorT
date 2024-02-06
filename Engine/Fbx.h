@@ -33,6 +33,7 @@ class Fbx
 		XMFLOAT4 ambient;
 		XMFLOAT4 specular;
 		float	 shininess;
+		float	 scroll;
 	};
 
 	struct CBUFF_MODEL
@@ -46,6 +47,8 @@ class Fbx
 		FLOAT		shininess;
 		BOOL		isTextured;
 		BOOL		isNormalMap;
+		FLOAT		scrollx;
+		FLOAT		scrolly;
 	};
 
 	struct VERTEX
@@ -76,6 +79,8 @@ public:
 
 	Fbx();
 	HRESULT Load(std::string fileName);
+	float scrollValx;
+	float scrollValy;
 	void    Draw(Transform& transform);
 	void	SetRenderingShader(RENDER_STATE _state) { state_ = _state; }
 	void    Release();

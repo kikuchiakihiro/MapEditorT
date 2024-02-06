@@ -13,7 +13,7 @@ Ball::Ball(GameObject* parent)
 Ball::~Ball()
 {
 }
-Sprite* pSprite = nullptr;
+//Sprite* pSprite = nullptr;
 //‰Šú‰»
 void Ball::Initialize()
 {

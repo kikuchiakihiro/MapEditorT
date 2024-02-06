@@ -327,8 +327,12 @@ void Fbx::Draw(Transform& transform)
 
 		cb.isTextured = pMaterialList_[i].pTexture != nullptr;
 		cb.isNormalMap = pMaterialList_[i].pNormalTexture != nullptr;
-
-
+		//cb.scroll = pMaterialList_[i].scroll;
+		
+		scrollValx += 0.001f;
+		cb.scrollx = sin(scrollValx);
+		scrollValy += 0.005f;
+		cb.scrolly = sin(scrollValy);
 
 		Direct3D::pContext_->UpdateSubresource(pConstantBuffer_, 0, NULL, &cb, 0, 0);
 

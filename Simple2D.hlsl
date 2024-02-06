@@ -10,6 +10,7 @@ cbuffer global
 {
 	
 	float4x4	matW;	//ƒ[ƒ‹ƒhs—ñ
+	float		g_scroll;
 };
 
 //„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ
@@ -49,8 +50,12 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD)
 //„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ„Ÿ
 float4 PS(VS_OUT inData) : SV_Target
 {
-
-	float4 Colors = floor(g_texture.Sample(g_sampler, inData.uv) * 2.0) / 8;
-	return Colors;
+	float4 output;
+float2	   tmpuv = inData.uv;
+tmpuv.x += g_scroll;
+output = g_texture.Sample(g_sampler, tmpuv);
+return output;
+	/*float4 Colors = floor(g_texture.Sample(g_sampler, inData.uv) * 2.0) / 8;
+	return Colors;*/
 
 }

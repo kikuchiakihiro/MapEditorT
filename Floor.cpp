@@ -1,4 +1,5 @@
 #include "Floor.h"
+#include "Engine/sprite.h"
 #include "Engine/Model.h"
 #include "Engine/Fbx.h"
 #include "Engine/Transform.h"
@@ -12,12 +13,12 @@ Floor::Floor(GameObject* parent)
 Floor::~Floor()
 {
 }
-//Sprite* pSprite = nullptr;
+Sprite* pSprite = nullptr;
 //初期化
 void Floor::Initialize()
 {
     //モデルデータのロード
-    hModel_ = Model::Load("Assets/Dice.fbx");
+    hModel_ = Model::Load("Assets/WaterNomral.fbx");
     assert(hModel_ >= 0);
     transform_.position_.z = -8;
     transform_.position_.y = 5;

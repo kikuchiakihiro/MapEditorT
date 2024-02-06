@@ -20,6 +20,8 @@ cbuffer gmodel:register(b0)
 	float		shininess;			//ハイライトの広がりの大きさ
 	int		isTextured;			//テクスチャーが貼られているかどうか
 	int		isNormalMap;		//ノーマルマップがあるかどうか
+	float	scrollx;
+	float	scrolly;
 };
 
 cbuffer gmodel:register(b1)
@@ -108,12 +110,23 @@ float4 PS(VS_OUT inData) : SV_Target
 	float4 diffuse;
 	float4 ambient;
 
+	float2 tmpuvX = inData.uv;
+	tmpuvX.x += scrollx;
+	float2 tmpuvY = inData.uv;
+	tmpuvY.y += scrolly;
+
+	float2 tmpuv = tmpuvX + tmpuvY;
 	if (isNormalMap)
 	{
 		//inData.light = normalize(inData.light);
-		float4 tmpNormal = normalTex.Sample(g_sampler, inData.uv) * 2.0f - 1.0f;
-		tmpNormal.w = 0;
-		tmpNormal = normalize(tmpNormal);
+		float4 tmpNormalX = normalTex.Sample(g_sampler, tmpuv) * 2.0f - 1.0f;
+		float4 tmpNormalY = normalTex.Sample(g_sampler, tmpuv) * 2.0f - 1.0f;
+		tmpNormalX.w = 0;
+		tmpNormalX = normalize(tmpNormalX);
+		tmpNormalY.w = 0;
+		tmpNormalY = normalize(tmpNormalY);
+
+		float4 tmpNormal = tmpNormalX + tmpNormalY;
 
 		float4 NL = clamp(dot(tmpNormal, inData.light), 1, 1);
 
@@ -122,18 +135,26 @@ float4 PS(VS_OUT inData) : SV_Target
 
 		if (isTextured != false)
 		{
-			diffuse = g_texture.Sample(g_sampler, inData.uv) * NL;
-			ambient = g_texture.Sample(g_sampler, inData.uv) * ambientColor;
+			diffuse = g_texture.Sample(g_sampler, tmpuv) * NL;
+			ambient = g_texture.Sample(g_sampler, tmpuv) * ambientColor;
 		}
 		else
 		{
 			diffuse = diffuseColor * NL;
 			ambient = diffuseColor * ambientColor;
 		}
-		return   diffuse+ambient+specular;
+		return   diffuse+ambient;
 	}
 	else
 	{
+		float4 tmpNormalX = normalTex.Sample(g_sampler, tmpuv) * 2.0f - 1.0f;
+		float4 tmpNormalY = normalTex.Sample(g_sampler, tmpuv) * 2.0f - 1.0f;
+		tmpNormalX.w = 0;
+		tmpNormalX = normalize(tmpNormalX);
+		tmpNormalY.w = 0;
+		tmpNormalY = normalize(tmpNormalY);
+
+		float4 tmpNormal = tmpNormalX + tmpNormalY;
 		float4 reflection = reflect(normalize(lightPosition), inData.normal);
 
 		float4 specular = pow(saturate(dot(normalize(reflection), inData.eyev)), shininess) * specularColor;
@@ -144,10 +165,10 @@ float4 PS(VS_OUT inData) : SV_Target
 		}
 		else
 		{
-			diffuse = lightSource * g_texture.Sample(g_sampler, inData.uv) * inData.color;
-			ambient = lightSource * g_texture.Sample(g_sampler, inData.uv) * ambientColor;
+			diffuse = lightSource * g_texture.Sample(g_sampler, tmpuv) * inData.color;
+			ambient = lightSource * g_texture.Sample(g_sampler, tmpuv) * ambientColor;
 		}
-		return   diffuse+ambient+specular;
+		return   diffuse+ambient;
 		/*float4 result = diffuse + ambient + specular;
 		if (isTextured)
 			result.a = inData.uv;
