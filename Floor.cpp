@@ -18,11 +18,11 @@ Sprite* pSprite = nullptr;
 void Floor::Initialize()
 {
     //モデルデータのロード
-    hModel_ = Model::Load("Assets/WaterNomral.fbx");
+    hModel_ = Model::Load("Assets/WaterNormal.fbx");
     assert(hModel_ >= 0);
     transform_.position_.z = -8;
     transform_.position_.y = 5;
-   
+    transform_.rotate_.y = 45;
 }
 
 //更新
