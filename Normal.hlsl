@@ -59,21 +59,24 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL, f
 	outData.uv = (float2)uv;
 
 	float3  binormal = cross(normal, tangent);
-
-	
-	normal = mul(normal, matNormal);
-	normal = normalize(normal); //法線ベクトルをローカル座標に変換したやつ
-	normal.w = 0;
-	outData.normal = normal;
-
-	tangent.w = 0;
-	tangent = mul(tangent, matNormal);
-	tangent = normalize(tangent); //接線ベクトルをローカル座標に変換したやつ
-
 	binormal = mul(binormal, matNormal);
 	binormal = normalize(binormal); //従法線ベクトルをローカル座標に変換したやつ
 
-	float4 posw = mul(pos, matW);
+	outData.normal = normalize(mul(normal, matNormal));
+	normal.w = 0;
+	//normal.w = 0;
+	//normal = mul(normal, matNormal);
+	//normal = normalize(normal); //法線ベクトルをローカル座標に変換したやつ
+	//normal.w = 0;
+	//outData.normal = normal;
+
+	
+	tangent = mul(tangent, matNormal);
+	tangent = normalize(tangent); //接線ベクトルをローカル座標に変換したやつ
+	tangent.w = 0;
+	
+
+	//float4 posw = mul(pos, matW);
 	float4 eye = normalize(mul(pos, matW) - eyePosition);
 	outData.eyev = eye;
 
@@ -89,7 +92,7 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL, f
 
 
 	outData.color = mul(light, outData.normal);
-	outData.color.w = 0.0;
+	outData.color.w = 0.0f;
 
 	
 	outData.light.x = dot(light, tangent);//接空間の光源ベクトル
@@ -112,38 +115,33 @@ float4 PS(VS_OUT inData) : SV_Target
 
 	float2 tmpUV = inData.uv;
 	tmpUV.x = tmpUV.x + scrollx;
-	tmpUV.y = tmpUV.y - scrolly;
-	// ノーマルマップテクスチャの有無の確認
-	//if (hasNormalTexture)return float4(1, 0, 0, 1);
-	//return float4(0, 0, 0, 1);
-
-
-	/*if (hasNormalTexture)
-		return g_normal_texture.Sample(g_sampler, inData.uv);
-	else*/
-
+	tmpUV.y = tmpUV.y + scrolly;
+	
 	if (isNormalMap)
 	{
 		//inData.light = normalize(inData.light);
-		float4 tmpNormal = normalTex.Sample(g_sampler, tmpUV.xy) * 2.0f - 1.0f;
-		tmpNormal = normalize(tmpNormal);
+		float4 tmpNormal = normalTex.Sample(g_sampler, tmpUV) * 2.0f - 1.0f;
+		float4 tmpNormal2 = normalTex.Sample(g_sampler, inData.uv+(scrollx*0.4+(-scrolly)*0.4)) * 2.0f - 1.0f;
+		//tmpNormal = normalize(tmpNormal);
 		tmpNormal.w = 0;
-		tmpNormal = float4(0, 1, 0, 0);
-		//return tmpNorormal.a = 1;mal;
+		tmpNormal2.w = 0;
+		tmpNormal = normalize(tmpNormal+tmpNormal2);
+		//tmpNormal.a = 1;
+		//return tmpNormal;
 
-		float4 NL = clamp(dot(normalize(inData.light), tmpNormal), 0.5,1);
-		float4 reflection = reflect(-inData.light, tmpNormal);
+		float4 NL = clamp(dot(tmpNormal,normalize(inData.light)), 0,1);
+		float4 reflection = reflect(inData.light, tmpNormal);
 		float4 specular = pow(saturate(dot(reflection, inData.Neyev)), shininess) * specularColor;
 
 		if (isTextured != 0) {
-			diffuse = g_texture.Sample(g_sampler, inData.uv) * NL;
-			ambient = g_texture.Sample(g_sampler, inData.uv) * ambientColor;
+			diffuse = lightSource * g_texture.Sample(g_sampler, inData.uv) * NL;
+			ambient =  g_texture.Sample(g_sampler, inData.uv) * ambientColor;
 		}
 		else {
 			diffuse = diffuseColor * NL;
 			ambient = diffuseColor * ambientColor;
 		}
-		return diffuse + specular + ambient;
+		return diffuse;
 	}
 	else
 	{

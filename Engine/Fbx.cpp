@@ -329,7 +329,7 @@ void Fbx::Draw(Transform& transform)
 		cb.isNormalMap = pMaterialList_[i].pNormalTexture != nullptr;
 		//cb.scroll = pMaterialList_[i].scroll;
 		
-		scrollValx += 0.001f;
+		scrollValx += 0.01f;
 		cb.scrollx = sin(scrollValx);
 		scrollValy += 0.005f;
 		cb.scrolly = sin(scrollValy);
