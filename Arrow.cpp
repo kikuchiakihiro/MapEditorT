@@ -18,7 +18,7 @@ Arrow::~Arrow()
 void Arrow::Initialize()
 {
     //モデルデータのロード
-    hModel_ = Model::Load("Assets/WaterNomral.fbx");
+   hModel_ = Model::Load("Assets/KumoWater.fbx");
     assert(hModel_ >= 0);
     //transform_.position_.x = 3;
     //transform_.rotate_.x = 270;

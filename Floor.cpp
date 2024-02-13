@@ -18,9 +18,9 @@ Sprite* pSprite = nullptr;
 void Floor::Initialize()
 {
     //モデルデータのロード
-    hModel_ = Model::Load("Assets/WaterNormal.fbx");
+    hModel_ = Model::Load("Assets/Watermap.fbx");
     assert(hModel_ >= 0);
-   // transform_.position_.z = -8;
+    //transform_.position_.z = -8;
     //transform_.position_.y = 5;
     //transform_.rotate_.y = 45;
 }
@@ -30,6 +30,7 @@ void Floor::Update()
 {
     /*transform_.rotate_.z += 0.1;
     transform_.rotate_.y += 0.1;*/
+    //transform_.rotate_.y += 0.1;
 }
 
 //描画
